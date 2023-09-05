@@ -27,13 +27,11 @@ public class Receipt {
     @Column
     @NotNull(message = "Invalid purchase date.")
     @PastOrPresent(message = "Purchase Date is not a valid date")
-    @Pattern(regexp = "\\d{4}-\\d{2}-\\d{2}", message = "purchase date must be: yyyy-mm-dd")
     private LocalDate purchaseDate;
 
     @Column
     @NotNull(message = "Invalid purchase time")
     @PastOrPresent(message = "Purchase Time is not a valid time")
-    @Pattern(regexp = "\\d{2}:\\d{2}", message = "Format time must be: HH:mm")
     private LocalTime purchaseTime;
     @OneToMany(
             mappedBy = "receipt",
@@ -54,7 +52,6 @@ public class Receipt {
     }
 
     public Receipt(String retailer, LocalDate purchaseDate, LocalTime purchaseTime, List<Item> items) {
-        System.out.println("Created semi");
         this.retailer = retailer;
         this.purchaseDate = purchaseDate;
         this.purchaseTime = purchaseTime;
@@ -63,7 +60,6 @@ public class Receipt {
     }
 
     public Receipt(UUID id, String retailer, LocalDate purchaseDate, LocalTime purchaseTime, List<Item> items) {
-        System.out.println("Created full");
         this.id = id;
         this.retailer = retailer;
         this.purchaseDate = purchaseDate;

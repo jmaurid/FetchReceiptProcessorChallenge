@@ -1,5 +1,7 @@
 package com.fetch.exercise.fetchexercise.receipt;
 
+import com.fetch.exercise.fetchexercise.exception.ResourceNotFoundException;
+import com.fetch.exercise.fetchexercise.util.Points;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,21 +21,48 @@ public class ReceiptService {
         this.receiptRepository = receiptRepository;
     }
 
+
+    /**
+     *
+     * Returns a List of Receipt objects that are present in the database
+     * @return List of Receipt objects
+     *
+     */
     public List<Receipt> getReceipts(){
         return receiptRepository.findAll();
     }
 
+    /**
+     *
+     * Returns a ReceiptResponse object if it's saved into the database
+     * @param receipt Receipt object to be validated and then saved
+     * @return ReceiptResponse object with the assigned id
+     *
+     */
     @Transactional
-    public ResponseEntity addNewReceipt(Receipt receipt) {
+    public ReceiptResponse addNewReceipt(Receipt receipt) {
         receipt.setTotal();
         receiptRepository.save(receipt);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id]").buildAndExpand(receipt.getId()).toUri();
         ReceiptResponse receiptResponse = new ReceiptResponse(receipt.getId());
-        return ResponseEntity.created(location).body(receiptResponse);
+        return receiptResponse;
     }
 
-    public ResponseEntity getReceiptPoints(Receipt receipt) {
-        // TODO Method implementation
-        return null;
+
+    /**
+     *
+     * Returns a Points object with the total of points based on a set of rules.
+     *
+     * @param receipt Existing Receipt object to be in search of into the database
+     * @return Points object with the total of points
+     * @throws ResourceNotFoundException when receipt does not exists on database
+     *
+     */
+    public Points getReceiptPoints(Receipt receipt) {
+        if (receiptRepository.existsById(receipt.getId())){
+            receipt =  receiptRepository.getReferenceById(receipt.getId());
+            return Points.calculatePoints(receipt);
+        }else {
+            throw new ResourceNotFoundException("Resource not found.");
+        }
     }
 }
