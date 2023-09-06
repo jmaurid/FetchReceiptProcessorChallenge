@@ -6,7 +6,7 @@ This repository contains a solution to the challenge described on [this reposito
 The challenge involves building a webservice that fullfils the documented API as it's described bellow.
 
 ---
-## Documented API
+## API Requirements
 
 ### Endpoint: Process Receipts
 * Path: `/receipts/process`
@@ -54,3 +54,163 @@ These rules collectively define how many points should be awarded to a receipt.
 * If the trimmed length of the item description is a multiple of 3, multiply the price by `0.2` and round up to the nearest integer. The result is the number of points earned.
 * 6 points if the day in the purchase date is odd.
 * 10 points if the time of purchase is after 2:00pm and before 4:00pm.
+
+---
+# Solution
+In this repository, you will find the complete solution to the technical interview challenge. The solution is implemented in Java using openjdk 17. Detailed instructions on how to run the solution will be provided.
+
+Repository Structure
+The repository is organized as follows:
+
+```shell
+/
+|-- src/             # Source code of the solution
+|-- src/tests/       # Unit tests
+|-- README.md        # This file
+|-- pom.xml          # maven configuration file
+|-- Dokerfile        # Dockerfile needed to create the container and run this implementation
+|-- mvnw             # mvn files
+|-- mvn.cmd          # mvn files
+|-- .gitignore       # Excluded files and directories for version control
+|-- .mvn             # mvn files
+```
+## Usage Instructions
+To use this solution, follow the steps below:
+
+1. Clone this repository to your local machine:
+```shell
+$ git clone https://github.com/jmaurid/FetchReceiptProcessorChallenge.git
+```
+2. Navigate to the solution directory:
+```shell
+$ cd FetchReceiptProcessorChallenge
+```
+3. Build docker image from Dokerfile provided
+```shell
+$ docker build -t {name}:1.0 .
+## replace {name} with the name you choose for image.
+```
+4. Check the docker images available
+```shell
+$ docker images
+RESPOSITORY     TAG     IMAGE ID      CREATED     SIZE
+{name}          1.0     {image id}    {created}   {size}
+```
+5. Create container with the image created
+```shell
+$ docker run -p 8080:8080 {image id}
+## replace {image id} with the actual image id for image.
+```
+---
+# API Reference
+
+### GET All Receipts
+
+```http
+GET /receipts
+```
+#### Parameters
+Endpoint doesn't have any parameters
+#### Return type
+Returns a JSON object with all receipts
+
+### POST Receipt
+
+```http
+POST /receipts/process
+```
+#### Parameters
+JSON Object with a Receipt Object
+
+##### JSON Object Specification for Receipt
+| Parameter      | Type                | Description                          |
+|:---------------|:--------------------|:-------------------------------------|
+| `retailer`     | String              | Retailer name                        |
+| `purchaseDate` | String              | Purchase date as follows: yyyy-mm-dd |
+| `purchaseTime` | String              | Purchase time as follows: HH:mm      |
+| `items`        | array\<JSON Object> | Array of JSON Objects for each item  |
+| `total`        | String              | Receipt total                        |
+
+##### JSON Object Specification for Item
+| Parameter          | Type                | Description      |
+|:-------------------|:--------------------|:-----------------|
+| `shortDescription` | String              | Item description |
+| `price`            | String              | Item price       |
+
+The request body should be as follows:
+```json
+{
+  "retailer": "Target",
+  "purchaseDate": "2022-01-01",
+  "purchaseTime": "13:01",
+  "items": [
+    {
+      "shortDescription": "Mountain Dew 12PK",
+      "price": "6.49"
+    },{
+      "shortDescription": "Emils Cheese Pizza",
+      "price": "12.25"
+    },{
+      "shortDescription": "Knorr Creamy Chicken",
+      "price": "1.26"
+    },{
+      "shortDescription": "Doritos Nacho Cheese",
+      "price": "3.35"
+    },{
+      "shortDescription": "   Klarbrunn 12-PK 12 FL OZ  ",
+      "price": "12.00"
+    }
+  ],
+  "total": "35.35"
+}
+```
+
+
+#### Return type
+Returns a JSON object with the id of the receipt saved if success
+
+```json
+{ "id": "7fb1377b-b223-49d9-a31a-5a02701dd310" }
+```
+
+Returns a JSON object with the id of the receipt saved if failed
+
+```json
+{ "errorField": "errorMessage" }
+```
+#### Error codes
+| Error | Description                               |
+|:------|:------------------------------------------|
+| `400` | A field from the JSON Object is not valid |
+
+### GET Receipt points
+
+```http
+GET /receipts/{id}/points
+```
+#### Parameters
+| Parameter | Type                 | Description                     |
+|:----------|:---------------------|:--------------------------------|
+| `id`      | String               | Id that follows UUID convention |
+#### Return type
+Returns a JSON object with receipt points if exists
+
+```json
+{ "points": 75 }
+```
+
+Returns a JSON object with error message if receipt doesn't exist
+
+```json
+{ "Error": "Resource not found." }
+```
+
+#### Error codes
+| Error   | Description               |
+|:--------|:--------------------------|
+| `404`   | The receipt doesn't exist |
+
+# Contact
+If you have any questions or comments about this solution, please don't hesitate to contact me via email at jmaurid@hotmail.com.
+
+Thank you for reviewing my technical interview solution!

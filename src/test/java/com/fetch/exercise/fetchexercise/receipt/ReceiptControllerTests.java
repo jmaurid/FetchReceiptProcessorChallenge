@@ -1,6 +1,7 @@
 package com.fetch.exercise.fetchexercise.receipt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fetch.exercise.fetchexercise.item.Item;
 import com.fetch.exercise.fetchexercise.util.Points;
@@ -19,6 +20,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -52,17 +54,18 @@ public class ReceiptControllerTests {
 
         Receipt receipt = new Receipt(
                 "M&M Corner Market",
-                LocalDate.of(2023, 9,5),
-                LocalTime.of(15,18),
+                LocalDate.of(2022, 3, 20),
+                LocalTime.of(0,18),
                 items
         );
 
 
 
-        given(receiptService.addNewReceipt(any())).willAnswer((invocation -> invocation.getArgument(0)));
+        given(receiptService.addNewReceipt(ArgumentMatchers.any())).willAnswer((invocation -> invocation.getArgument(0)));
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
+        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS,false);
         String json = mapper.writeValueAsString(receipt);
 
 

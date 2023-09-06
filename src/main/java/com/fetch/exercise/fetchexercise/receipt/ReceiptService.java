@@ -34,9 +34,9 @@ public class ReceiptService {
 
     /**
      *
-     * Returns a ReceiptResponse object if it's saved into the database
+     * Returns a Receipt object if it's saved into the database
      * @param receipt Receipt object to be validated and then saved
-     * @return ReceiptResponse object with the assigned id
+     * @return Receipt object with the assigned id
      *
      */
     @Transactional
