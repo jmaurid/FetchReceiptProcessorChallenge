@@ -78,7 +78,7 @@ public class ReceiptServiceTests {
 
         when(receiptRepository.save(any(Receipt.class))).thenReturn(receipt);
 
-        ReceiptResponse receiptResponse = receiptService.addNewReceipt(receipt);
+        Receipt receiptResponse = receiptService.addNewReceipt(receipt);
 
         Assertions.assertThat(receiptResponse).isNotNull();
         Assertions.assertThat(receiptResponse.getId()).isInstanceOf(UUID.class);

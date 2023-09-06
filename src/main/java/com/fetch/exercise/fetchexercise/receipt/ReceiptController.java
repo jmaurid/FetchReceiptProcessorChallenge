@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -28,14 +30,15 @@ public class ReceiptController {
     }
 
     @PostMapping("/process")
-    public ResponseEntity<ReceiptResponse> addNewReceipt(@Valid @RequestBody Receipt receipt) {
-        ReceiptResponse receiptResponse = receiptService.addNewReceipt(receipt);
-
+    public ResponseEntity<Map<String, UUID>> addNewReceipt(@Valid @RequestBody Receipt receipt) {
+        Receipt receiptResponse = receiptService.addNewReceipt(receipt);
+        Map<String, UUID> response = new HashMap<>();
+        response.put("id", receiptResponse.getId());
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(receiptResponse.getId()).toUri();
-        return ResponseEntity.created(location).body(receiptResponse);
+        return ResponseEntity.created(location).body(response);
     }
 
-    @GetMapping("/{id}/pints")
+    @GetMapping("/{id}/points")
     public ResponseEntity<Points> getPoints(@PathVariable UUID id){
         return ResponseEntity.ok(receiptService.getReceiptPoints(new Receipt(id)));
     }

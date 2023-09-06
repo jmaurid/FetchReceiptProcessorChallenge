@@ -40,11 +40,10 @@ public class ReceiptService {
      *
      */
     @Transactional
-    public ReceiptResponse addNewReceipt(Receipt receipt) {
+    public Receipt addNewReceipt(Receipt receipt) {
         receipt.setTotal();
         receiptRepository.save(receipt);
-        ReceiptResponse receiptResponse = new ReceiptResponse(receipt.getId());
-        return receiptResponse;
+        return new Receipt(receipt.getId());
     }
 
 
