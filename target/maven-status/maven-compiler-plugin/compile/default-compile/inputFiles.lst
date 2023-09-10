@@ -1,0 +1,11 @@
+/home/mauricio/IdeaProjects/FetchPrueba/FetchReceiptProcessorChallenge/src/main/java/com/fetch/exercise/fetchexercise/FetchExerciseApplication.java
+/home/mauricio/IdeaProjects/FetchPrueba/FetchReceiptProcessorChallenge/src/main/java/com/fetch/exercise/fetchexercise/item/Item.java
+/home/mauricio/IdeaProjects/FetchPrueba/FetchReceiptProcessorChallenge/src/main/java/com/fetch/exercise/fetchexercise/util/BaseControllerAdvice.java
+/home/mauricio/IdeaProjects/FetchPrueba/FetchReceiptProcessorChallenge/src/main/java/com/fetch/exercise/fetchexercise/item/ItemService.java
+/home/mauricio/IdeaProjects/FetchPrueba/FetchReceiptProcessorChallenge/src/main/java/com/fetch/exercise/fetchexercise/receipt/ReceiptController.java
+/home/mauricio/IdeaProjects/FetchPrueba/FetchReceiptProcessorChallenge/src/main/java/com/fetch/exercise/fetchexercise/receipt/ReceiptService.java
+/home/mauricio/IdeaProjects/FetchPrueba/FetchReceiptProcessorChallenge/src/main/java/com/fetch/exercise/fetchexercise/receipt/Receipt.java
+/home/mauricio/IdeaProjects/FetchPrueba/FetchReceiptProcessorChallenge/src/main/java/com/fetch/exercise/fetchexercise/exception/ResourceNotFoundException.java
+/home/mauricio/IdeaProjects/FetchPrueba/FetchReceiptProcessorChallenge/src/main/java/com/fetch/exercise/fetchexercise/item/ItemRepository.java
+/home/mauricio/IdeaProjects/FetchPrueba/FetchReceiptProcessorChallenge/src/main/java/com/fetch/exercise/fetchexercise/receipt/ReceiptRepository.java
+/home/mauricio/IdeaProjects/FetchPrueba/FetchReceiptProcessorChallenge/src/main/java/com/fetch/exercise/fetchexercise/util/Points.java

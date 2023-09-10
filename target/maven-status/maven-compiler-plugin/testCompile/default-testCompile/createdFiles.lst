@@ -1,0 +1,5 @@
+com/fetch/exercise/fetchexercise/receipt/ReceiptControllerTests.class
+com/fetch/exercise/fetchexercise/receipt/ReceiptRepositoryTests.class
+com/fetch/exercise/fetchexercise/item/ItemRepositoryTest.class
+com/fetch/exercise/fetchexercise/receipt/ReceiptServiceTests.class
+com/fetch/exercise/fetchexercise/FetchExerciseApplicationTests.class
